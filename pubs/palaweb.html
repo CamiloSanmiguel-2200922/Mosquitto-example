@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+const mqtt = require("mqtt");
+const client = mqtt.connect("127.0.0.1");
+
+console.log("sapisimo")
+
+client.on("connect", () => {
+  client.subscribe("mosquitaller", (err) => {
+    if (!err) {
+      client.publish("mosquitaller", "Hello mqtt");
+    }
+  });
+});
+
+client.on("message", (topic, message) => {
+  // message is Buffer
+  console.log(message.toString());
+  console.log("sapo")
+  client.end();
+});
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
